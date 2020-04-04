@@ -137,7 +137,7 @@ footer.footer {
 }
 
   .modal-login {
-    width: 400px;
+    width: auto;
   }
   .modal-login .modal-content {
     border-radius: 1px;
