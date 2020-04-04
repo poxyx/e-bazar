@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>E-bazar in Ranau Town | Order Now </title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="css/landing-page.css" rel="stylesheet">
+
+</head>
+
+<body onload="getUser()">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light static-top bg-white">
+    <div class="container">
+      <a class="navbar-brand purple" href="#"><b class="purple">E-BAZAR</b></a>
+      <a class="text-decoration-none border-0 rounded-0 purple trigger-btn" href="#loginModal" id="login_menu" data-toggle="modal">
+        <i class="far fa-user purple mr-2"></i> LOGIN
+      </a>
+      <div class="dropdown" id="user_menu" style="display: none;">
+        <a class="dropdown-toggle purple" data-toggle="dropdown">
+          <i class="far fa-user purple mr-2"></i> <span id="user_login">USER</span>
+        </a>
+        <div class="dropdown-menu mr-5 mt-3 rounded-0">
+          <a class="dropdown-item" href="#">My orders</a>
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="#">Help</a>
+          <a class="dropdown-item" href="#" onclick="event.preventDefault(); logoutUser();">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Masthead -->
+  <header class="masthead text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5 tex">It's the food you love, delivered</h1>
+        </div>
+        <div class="col-md-12 col-lg-8 col-xl-7 mx-auto">
+          <form>
+            <div class="form-row">
+              <div class="col-12 col-md-6 mb-2 mb-md-0">
+                <input type="text" class="shadow form-control rounded-0 p-4" id="address" onclick="getLocation()" placeholder="Enter your full address..">
+              </div>
+              <div class="col-6 col-md-3">
+                <button type="submit" class="shadow btn btn-block btn-lg btn-primary rounded-0 mobile-space">DELIVERY</button>
+              </div>
+              <div class="col-6 col-md-3">
+                <button type="submit" class="shadow btn btn-block btn-lg btn-primary rounded-0 mobile-space">PICK UP</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<!--  Icons Grid -->
+  <section class="features-icons bg-light text-center mt-n4">
+    <div class="container">
+      <div class="row ">
+        <div class="col-12 mb-4">
+          <h3 class="text-center"> HOW IT WORKS :</h3>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon">
+              <i class="fas fa-map-marked-alt d-flex purple justify-content-center"></i>
+            </div>
+            <h3>Step 1</h3>
+            <p class="lead mb-0">Customers enter a delivery address via website and select a Seller nearby.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon">
+              <i class="fas fa-hamburger d-flex purple justify-content-center"></i>
+            </div>
+            <h3>Step 2</h3>
+            <p class="lead mb-0">Seller accepts the order and starts preparing the food.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon">
+              <i class="fas fa-check-circle d-flex purple justify-content-center"></i>
+            </div>
+            <h3>Step 3</h3>
+            <p class="lead mb-0">Seller will forward the product to a Runner and deliver it to the customer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <a href="#" class="purple">About</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#" class="purple">Contact</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#" class="purple">Terms of Use</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#" class="purple">Privacy Policy</a>
+            </li>
+          </ul>
+          <p class="text-muted small mb-4 mb-lg-0">&copy; e-bazar.com 2020. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item mr-3">
+              <a href="#">
+                <i class="fab fa-facebook fa-2x fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="float trigger-btn" href="#cartModal" data-toggle="modal">
+    <i class="fas fa-shopping-cart my-float"></i>
+  </a>
+
+  <!-- Modal HTML -->
+  <div id="loginModal" class="modal fade  rounded-0">
+    <div class="modal-dialog h-100 my-0 mx-auto d-flex flex-column justify-content-center modal-login  rounded-0">
+      <div class="modal-content  rounded-0">
+        <form action="#" method="post" onsubmit="event.preventDefault(); checkLogin();">
+          <div class="modal-header rounded-0 bg-white">        
+            <h5 class="modal-title">WELCOME TO E-BAZAR</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">        
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" class="form-control rounded-0" id="username" required="required">
+            </div>
+            <div class="form-group">
+              <div class="clearfix">
+                <label>Password</label>
+                <a href="#" class="pull-right text-muted text-decoration-none"><small class="purple">Forgot?</small></a>
+              </div>
+              
+              <input type="password" class=" rounded-0 form-control" id="password" required="required">
+            </div>
+            <small>Don't have an account? <a href="#" class="purple text-decoration-none"> Sign up here </a></small>
+            <div id="warning"></div>
+          </div>
+          <div class="modal-footer rounded-0 bg-white">
+            <input type="submit" class="w-100 btn btn-primary pull-right  rounded-0" value="LOGIN">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+
+
+    <div id="cartModal" class="modal fade  rounded-0">
+    <div class="modal-dialog h-100 my-0 mx-auto d-flex flex-column justify-content-center modal-login  rounded-0">
+      <div class="modal-content  rounded-0">
+          <div class="modal-header rounded-0 bg-white">        
+            <h5 class="modal-title">CART</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">        
+          </div>
+          <div class="modal-footer rounded-0 bg-white">
+            <input type="submit" class="w-100 btn btn-primary pull-right  rounded-0" value="CHECKOUT">
+          </div>
+      </div>
+    </div>
+  </div> 
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+
+  <script>
+
+    let firebaseConfig = {
+      apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
+      authDomain: "e-bazar-f36a6.firebaseapp.com",
+      databaseURL: "https://e-bazar-f36a6.firebaseio.com",
+      projectId: "e-bazar-f36a6",
+      storageBucket: "e-bazar-f36a6.appspot.com",
+      messagingSenderId: "442307013973",
+      appId: "1:442307013973:web:4d7efafee476c323ec53dc",
+      measurementId: "G-ZMND22GR0T"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    let database = firebase.database();
+
+    function logoutUser()
+    {
+      sessionStorage.clear();
+      location.reload();
+    }
+
+    function getUser()
+    {
+        var user = sessionStorage.getItem("user");
+        if(user != null) 
+        {
+            document.getElementById("user_login").innerHTML = user.toUpperCase();
+            document.getElementById("user_menu").removeAttribute("style");
+            document.getElementById("login_menu").remove();
+        }
+    }
+
+    function loginSuccess(user)
+    {
+         sessionStorage.setItem("user", user.username);
+         sessionStorage.setItem("phone", user.phone);
+         location.reload();
+    }
+
+    function userNotFound()
+    {
+         let msg = "Please register your account...";
+         document.getElementById("warning").innerHTML = `<div class="alert alert-dismissible fade show rounded-0 alert-warning mt-2 mb-n3">
+         <button type="button" class="btn-sm close" data-dismiss="alert">&times;</button>
+         <small><strong>User not found! </strong> ${ msg } </small>
+         </div>`;
+    }
+
+
+    function checkLogin()
+    {
+      let loginUser = firebase.database().ref('users/' + document.getElementById("username").value);
+        loginUser.on('value', function(snapshot) 
+        {
+            if(snapshot.val() == null)
+            {
+              userNotFound()
+
+            } else {
+
+              snapshot.val().password == document.getElementById("password").value ? loginSuccess(snapshot.val()) :  userNotFound();
+            }
+        });
+     }
+
+     var loc = document.getElementById("address");
+
+     function getLocation() 
+     {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+          loc.value = "Geolocation is not supported by this browser.";
+        }
+      }
+
+    function showPosition(position) 
+    {
+      loc.value = position.coords.latitude + "," + position.coords.longitude;
+    }
+
+
+  </script>
+    
+</body>
+
+</html>

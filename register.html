@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Add two inputs for "phoneNumber" and "code" -->
+    <input type="tel" id="phoneNumber" placeholder="phone-no"/>
+    <br><hr>
+    <input type="text" id="name" placeholder="username" />
+    <br><hr>
+    <input type="password" id="password" placeholder="password" />
+    <br><hr>
+    <input type="text" id="code" placeholder="verification code" />
+    <!-- Add two buttons to submit the inputs -->
+    <button id="sign-in-button" onclick="submitPhoneNumberAuth()">
+     GET CODE
+    </button>   
+    <br><hr>
+
+    <!-- Add a container for reCaptcha -->
+    <div id="recaptcha-container"></div>
+
+    <br><hr>
+    <button id="confirm-code" onclick="submitPhoneNumberAuthCode()">
+      SIGN UP
+    </button>
+    <button id="confirm-code" onclick="submitLogoutAuth()">
+      LOG OUT
+    </button>
+
+
+    <!-- Add the latest firebase dependecies from CDN -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+
+    <script>
+      // Paste the config your copied earlier
+      var firebaseConfig = {
+        apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
+        authDomain: "e-bazar-f36a6.firebaseapp.com",
+        databaseURL: "https://e-bazar-f36a6.firebaseio.com",
+        projectId: "e-bazar-f36a6",
+        storageBucket: "e-bazar-f36a6.appspot.com",
+        messagingSenderId: "442307013973",
+        appId: "1:442307013973:web:4d7efafee476c323ec53dc",
+        measurementId: "G-ZMND22GR0T"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      var database = firebase.database();
+
+      // Create a Recaptcha verifier instance globally
+      // Calls submitPhoneNumberAuth() when the captcha is verified
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "normal",
+          callback: function(response) {
+            submitPhoneNumberAuth();
+          }
+        }
+      );
+
+      // This function runs when the 'sign-in-button' is clicked
+      // Takes the value from the 'phoneNumber' input and sends SMS to that phone number
+      function submitPhoneNumberAuth() {
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var appVerifier = window.recaptchaVerifier;
+        firebase
+          .auth()
+          .signInWithPhoneNumber(phoneNumber, appVerifier)
+          .then(function(confirmationResult) {
+            window.confirmationResult = confirmationResult;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+
+      // This function runs when the 'confirm-code' button is clicked
+      // Takes the value from the 'code' input and submits the code to verify the phone number
+      // Return a user object if the authentication was successful, and auth is complete
+      function submitPhoneNumberAuthCode() {
+        var code = document.getElementById("code").value;
+        confirmationResult
+          .confirm(code)
+          .then(function(result) {
+            var user = result.user;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+
+
+      function submitLogoutAuth() {
+        firebase
+          .auth()
+          .signOut()
+          .then(function() {
+            console.log("USER SIGNED OUT");
+          }).catch(function(error) {
+            console.log(error);
+          });
+      }
+
+      function writeUserData(uid, name, password) {
+        firebase.database().ref('users/' + name).set({
+          username: name,
+          password: password,
+          phone : uid
+        });
+      }
+
+    function redirect() 
+    {  
+        window.location="http://localhost/ranaucod.com/index.html"; 
+    } 
+
+      //This function runs everytime the auth state changes. Use to verify if the user is logged in
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log("REGISTER SUCCESS");
+          writeUserData(user.phoneNumber, document.getElementById("name").value, document.getElementById("password").value);
+          submitLogoutAuth();
+          console.log("You will be redirected to a new page in 5 seconds"); 
+          setTimeout('redirect()', 5000);   
+
+        } else {
+          // No user is signed in.
+          console.log("USER NOT LOGGED IN");
+        }
+      });
+    </script>
+  </body>
+</html>
+
