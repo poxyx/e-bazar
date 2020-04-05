@@ -1,61 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- Add two inputs for "phoneNumber" and "code" -->
-    <input type="text" id="res_name" placeholder="Restaurant name" />
-    <br><hr>
-    <input type="text" id="username" placeholder="Username" />
-    <br><hr>
-    <input type="password" id="password" placeholder="Password" />
-    <br><hr>
-    <input type="text" id="cuisine" placeholder="Cuisine" />
-    <br><hr>
-    <select id="order_type">
-      <option value="0" selected>Order Type</option>
-      <option value="D">Delivery</option>
-      <option value="C">Collection</option>
-      <option value="B">Both</option>
-    </select>
-    <br><hr>
-    <input type="text" class="shadow form-control rounded-0 p-4" id="address" onclick="getLocation()" placeholder="Enter your full address..">
-    <br><hr>
-    <input type="number" id="collection_time" placeholder="Collection time" />
-    <br><hr>
-    <input type="number" id="delivery_fee" placeholder="Delivery fee" />
-    <br><hr>
-    <input type="number" id="min_for_delivery" placeholder="Minimum amount for delivery" />
-    <br><hr>
-    <input type="text" id="min_delivery_time" placeholder="Minimum Delivery time" />
-    <br><hr>
-    <input type="text" id="max_delivery_time" placeholder="Maximum Delivery time" />
-    <br><hr>
-    <textarea id="desc">
-      
-    </textarea> 
-
-    <br><hr>
-        <input type="tel" id="phoneNumber" placeholder="phone-no"/>
-    <br><hr>
-    <input type="text" id="code" placeholder="verification code" />
-    <!-- Add two buttons to submit the inputs -->
-    <button id="sign-in-button" onclick="submitPhoneNumberAuth()">
-     GET CODE
-    </button>   
-    <br><hr>
-
-    <!-- Add a container for reCaptcha -->
-    <div id="recaptcha-container"></div>
-
-    <br><hr>
-    <button id="confirm-code" onclick="submitPhoneNumberAuthCode()">
-      SIGN UP
-    </button>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <title>E-bazar in Ranau Town | Order Now</title><!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"><!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet"><!-- Custom styles for this template -->
+  <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light fixed-top bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand purple" href="#"><b class="purple">E-BAZAR</b></a>
+    </div>
+  </nav><br>
+  <br>
+  <div class="container mt-5">
+    <span></span>
+    <h4><span><b class="purple d-flex justify-content-center">PARTNER REGISTER</b></span></h4><br>
+    <br>
+    <div class="row mt-3 mb-3">
+      <div class="col-12">
+        <div class="form-group">
+          <input class="form-control rounded-0" id="res_name" placeholder="Restaurant name" type="text"><br>
+        </div>
+        <div class="form-group">
+          <input  class="form-control rounded-0" id="username" placeholder="Username" type="text"><br>
+        </div>
+        <div class="form-group">
+          <input  class="form-control rounded-0" id="password" placeholder="Password" type="password"><br>
+        </div>
+        <div class="form-group">
+          <input  class="form-control rounded-0" id="cuisine" placeholder="Cuisine" type="text"><br>
+        </div>
+        <div class="form-group">
+          <select  class="form-control rounded-0" id="order_type">
+            <option selected value="0">
+              Order Type
+            </option>
+            <option value="D">
+              Delivery
+            </option>
+            <option value="C">
+              Collection
+            </option>
+            <option value="B">
+              Both
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input class="form-control rounded-0" id="address" onclick="getLocation()" placeholder="Enter your full address.." type="text"><br>
+        </div>
+        <div class="form-group">
+          <input  class="form-control rounded-0" id="collection_time" placeholder="Collection time" type="number"><br>
+        </div>
+        <div class="form-group">
+          <input  class="form-control rounded-0" id="delivery_fee" placeholder="Delivery fee" type="number"><br>
+        </div>
+        <div class="form-group">
+          <input  class="form-control rounded-0" id="min_for_delivery" placeholder="Minimum amount for delivery" type="number"><br>
+        </div>
+        <div class="form-group">
+           <input  class="form-control rounded-0" id="min_delivery_time" placeholder="Minimum Delivery time" type="text"><br>
+        </div>
+        <div class="form-group">
+          <input  class="form-control rounded-0" id="max_delivery_time" placeholder="Maximum Delivery time" type="text"><br>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control rounded-0" id="desc"></textarea><br>
+        </div>
+        <div class="form-group">
+           <input  class="form-control rounded-0" id="phoneNumber" placeholder="Phone no Ex: +60167839456" type="tel"><br>
+        </div>
+        <div class="form-group row">
+          <div class="col-6">
+            <label>Verification Code</label><br>
+            <input class="form-control rounded-0" id="code" type="text">
+          </div>
+          <div class="col-6">
+            <label>Send To Mobile</label><br>
+            <button class="w-100 btn btn-success rounded-0" id="sign-in-button" onclick="submitPhoneNumberAuth()">GET CODE</button>
+          </div>
+        </div>
+        <div class="w-100" id="recaptcha-container"></div>
+        <button class="w-100 btn btn-primary rounded-0 mt-2" id="confirm-code" onclick="submitPhoneNumberAuthCode()">SIGN UP</button>
+      </div>
+    </div>
+  </div><br>
+  <br>
+  <!-- Bootstrap core JavaScript -->
+   
+  <script src="vendor/jquery/jquery.min.js">
+  </script> 
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
+</body>
+</html>
 
     <!-- Add the latest firebase dependecies from CDN -->
     <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
@@ -192,6 +239,4 @@
     }
 
     </script>
-  </body>
-</html>
 
