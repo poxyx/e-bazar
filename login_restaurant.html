@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body onload="getUser()">
+
+
+        <form action="#" method="post" onsubmit="event.preventDefault(); checkLogin();">
+          <div class="modal-body">        
+            <div class="form-group">
+              <label>Username</label>
+              <br>
+              <input type="text" class="form-control rounded-0" id="username" required="required">
+            </div>
+            <div class="form-group">
+              <label>Password</label>      
+              <br>        
+              <input type="password" class=" rounded-0 form-control" id="password" required="required">
+            </div>
+            <br>
+            <small>Don't have an account? <a href="https://poxyx.github.io/register_restaurant.html" class="purple text-decoration-none"> Sign up here </a></small>
+            <div id="warning"></div>
+            <br>
+          </div>
+            <input type="submit" class="w-100 btn btn-primary pull-right  rounded-0" value="LOGIN">
+        </form>
+
+</body>
+</html>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+
+  <script>
+
+    let firebaseConfig = {
+      apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
+      authDomain: "e-bazar-f36a6.firebaseapp.com",
+      databaseURL: "https://e-bazar-f36a6.firebaseio.com",
+      projectId: "e-bazar-f36a6",
+      storageBucket: "e-bazar-f36a6.appspot.com",
+      messagingSenderId: "442307013973",
+      appId: "1:442307013973:web:4d7efafee476c323ec53dc",
+      measurementId: "G-ZMND22GR0T"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    let database = firebase.database();
+
+    function logoutUser()
+    {
+      sessionStorage.clear();
+      window.location.replace("https://poxyx.github.io/login_restaurant.html");
+    }
+
+    function getUser()
+    {
+        var user = sessionStorage.getItem("user");
+        if(user != null) 
+        {
+            document.getElementById("user_login").innerHTML = user.toUpperCase();
+            document.getElementById("user_menu").removeAttribute("style");
+            document.getElementById("login_menu").remove();
+        }
+    }
+
+    function loginSuccess(user)
+    {
+         sessionStorage.setItem("user", user.username);
+         sessionStorage.setItem("phone", user.phone);
+         window.location.replace("https://poxyx.github.io/restaurant_admin.html");
+    }
+
+    function userNotFound()
+    {
+         let msg = "Please register your account...";
+         document.getElementById("warning").innerHTML = `<div class="alert alert-dismissible fade show rounded-0 alert-warning mt-2 mb-n3">
+         <button type="button" class="btn-sm close" data-dismiss="alert">&times;</button>
+         <small><strong>User not found! </strong> ${ msg } </small>
+         </div>`;
+    }
+
+
+    function checkLogin()
+    {
+      let loginUser = firebase.database().ref('restaurant/' + document.getElementById("username").value);
+        loginUser.on('value', function(snapshot) 
+        {
+            if(snapshot.val() == null)
+            {
+              userNotFound()
+
+            } else {
+
+              snapshot.val().password == document.getElementById("password").value ? loginSuccess(snapshot.val()) :  userNotFound();
+            }
+        });
+     }
+
+  </script>

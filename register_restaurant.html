@@ -8,11 +8,39 @@
   </head>
   <body>
     <!-- Add two inputs for "phoneNumber" and "code" -->
-    <input type="tel" id="phoneNumber" placeholder="phone-no"/>
+    <input type="text" id="res_name" placeholder="Restaurant name" />
     <br><hr>
-    <input type="text" id="name" placeholder="username" />
+    <input type="text" id="username" placeholder="Username" />
     <br><hr>
-    <input type="password" id="password" placeholder="password" />
+    <input type="password" id="password" placeholder="Password" />
+    <br><hr>
+    <input type="text" id="cuisine" placeholder="Cuisine" />
+    <br><hr>
+    <select id="order_type">
+      <option value="0" selected>Order Type</option>
+      <option value="D">Delivery</option>
+      <option value="C">Collection</option>
+      <option value="B">Both</option>
+    </select>
+    <br><hr>
+    <input type="text" class="shadow form-control rounded-0 p-4" id="address" onclick="getLocation()" placeholder="Enter your full address..">
+    <br><hr>
+    <input type="number" id="collection_time" placeholder="Collection time" />
+    <br><hr>
+    <input type="number" id="delivery_fee" placeholder="Delivery fee" />
+    <br><hr>
+    <input type="number" id="min_for_delivery" placeholder="Minimum amount for delivery" />
+    <br><hr>
+    <input type="text" id="min_delivery_time" placeholder="Minimum Delivery time" />
+    <br><hr>
+    <input type="text" id="max_delivery_time" placeholder="Maximum Delivery time" />
+    <br><hr>
+    <textarea id="desc">
+      
+    </textarea> 
+
+    <br><hr>
+        <input type="tel" id="phoneNumber" placeholder="phone-no"/>
     <br><hr>
     <input type="text" id="code" placeholder="verification code" />
     <!-- Add two buttons to submit the inputs -->
@@ -28,10 +56,6 @@
     <button id="confirm-code" onclick="submitPhoneNumberAuthCode()">
       SIGN UP
     </button>
-    <button id="confirm-code" onclick="submitLogoutAuth()">
-      LOG OUT
-    </button>
-
 
     <!-- Add the latest firebase dependecies from CDN -->
     <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
@@ -110,11 +134,24 @@
           });
       }
 
-      function writeUserData(uid, name, password) {
-        firebase.database().ref('users/' + name).set({
-          username: name,
-          password: password,
-          phone : uid
+      function writeUserData(uid,name) {
+
+        var e = document.getElementById("order_type");
+
+        firebase.database().ref('restaurant/' + document.getElementById("username").value).set({
+          brand: name,
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value,
+          cuisine: document.getElementById("cuisine").value,
+          orderType: e.options[e.selectedIndex].value,
+          location: document.getElementById("address").value,
+          collectionTime: document.getElementById("collection_time").value,
+          deliveryFee: document.getElementById("delivery_fee").value,
+          minOrderForDelivery: document.getElementById("min_for_delivery").value,
+          minDeliveryTime: document.getElementById("min_delivery_time").value,
+          maxDeliveryTime: document.getElementById("max_delivery_time").value,
+          desc: document.getElementById("desc").value,
+          phone: uid   
         });
       }
 
@@ -127,7 +164,7 @@
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           console.log("REGISTER SUCCESS");
-          writeUserData(user.phoneNumber, document.getElementById("name").value, document.getElementById("password").value);
+          writeUserData(user.phoneNumber,document.getElementById("res_name").value);
           submitLogoutAuth();
           console.log("You will be redirected to a new page in 5 seconds"); 
           setTimeout('redirect()', 5000);   
@@ -137,6 +174,23 @@
           console.log("USER NOT LOGGED IN");
         }
       });
+
+           var loc = document.getElementById("address");
+
+     function getLocation() 
+     {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+          loc.value = "Geolocation is not supported by this browser.";
+        }
+      }
+
+    function showPosition(position) 
+    {
+      loc.value = position.coords.latitude + "," + position.coords.longitude;
+    }
+
     </script>
   </body>
 </html>

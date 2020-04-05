@@ -21,7 +21,7 @@ h6 {
 header.masthead {
   position: relative;
   background-color: #343a40;
-  background: url("../img/bg-masthead.jpg") no-repeat center center;
+  background: url("../img/bg.svg") no-repeat center center;
   background-size: cover;
   padding-top: 8rem;
   padding-bottom: 8rem;
@@ -34,7 +34,7 @@ header.masthead .overlay {
   width: 100%;
   top: 0;
   left: 0;
-  opacity: 0.6;
+  opacity: 0.2;
 }
 
 header.masthead h1 {
@@ -237,6 +237,16 @@ footer.footer {
 
 .text-grey {
   color:#707070 !important;
+}
+
+
+.spinner-border {
+    position: fixed;
+    margin: auto;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 @media screen and (max-width: 767px) {

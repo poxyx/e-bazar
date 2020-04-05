@@ -27,7 +27,7 @@
 <body onload="getUser()">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-light bg-light static-top bg-white">
+  <nav class="navbar navbar-light bg-light fixed-top bg-white shadow-sm">
     <div class="container">
       <a class="navbar-brand purple" href="#"><b class="purple">E-BAZAR</b></a>
       <a class="text-decoration-none border-0 rounded-0 purple trigger-btn" href="#loginModal" id="login_menu" data-toggle="modal">
@@ -53,7 +53,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mx-auto">
-          <h1 class="mb-5 tex">It's the food you love, delivered</h1>
+          <h1 class="mb-5 ">It's the food you love, delivered</h1>
         </div>
         <div class="col-md-12 col-lg-8 col-xl-7 mx-auto">
           <form>
@@ -62,7 +62,7 @@
                 <input type="text" class="shadow form-control rounded-0 p-4" id="address" onclick="getLocation()" placeholder="Enter your full address..">
               </div>
               <div class="col-6 col-md-3">
-                <a href="https://poxyx.github.io/e-bazar/home.html" class="shadow btn btn-block btn-lg btn-primary rounded-0 mobile-space">DELIVERY</a>
+                <a href="https://poxyx.github.io/home.html" class="shadow btn btn-block btn-lg btn-primary rounded-0 mobile-space">DELIVERY</a>
               </div>
               <div class="col-6 col-md-3">
                 <button type="submit" class="shadow btn btn-block btn-lg btn-primary rounded-0 mobile-space">PICK UP</button>
@@ -75,35 +75,29 @@
   </header>
 
 <!--  Icons Grid -->
-  <section class="features-icons bg-light text-center mt-n4">
+  <section class="features-icons bg-white text-center mt-n4">
     <div class="container">
       <div class="row ">
         <div class="col-12 mb-4">
           <h3 class="text-center"> HOW IT WORKS :</h3>
         </div>
         <div class="col-lg-4 mt-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon">
-              <i class="fas fa-map-marked-alt d-flex purple justify-content-center"></i>
-            </div>
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">           
+              <img class="mb-4" src="./img/step-1.svg" alt="Card image" width="100%" height="200px">
             <h3>Step 1</h3>
             <p class="lead mb-0">Customers enter a delivery address via website and select a Seller nearby.</p>
           </div>
         </div>
         <div class="col-lg-4 mt-4">
           <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon">
-              <i class="fas fa-hamburger d-flex purple justify-content-center"></i>
-            </div>
+              <img class="mb-4" src="./img/step-2.svg" alt="Card image" width="100%" height="200px">
             <h3>Step 2</h3>
             <p class="lead mb-0">Seller accepts the order and starts preparing the food.</p>
           </div>
         </div>
         <div class="col-lg-4 mt-4">
           <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon">
-              <i class="fas fa-check-circle d-flex purple justify-content-center"></i>
-            </div>
+              <img class="mb-4" src="./img/step-3.svg" alt="Card image" width="100%" height="200px">
             <h3>Step 3</h3>
             <p class="lead mb-0">Seller will forward the product to a Runner and deliver it to the customer.</p>
           </div>
@@ -112,38 +106,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-          <ul class="list-inline mb-2">
-            <li class="list-inline-item">
-              <a href="#" class="purple">About</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#" class="purple">Terms of Use</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#" class="purple">Privacy Policy</a>
-            </li>
-          </ul>
-          <p class="text-muted small mb-4 mb-lg-0">&copy; e-bazar.com 2020. All Rights Reserved.</p>
-        </div>
-        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-facebook fa-2x fa-fw"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
 
   <a class="float trigger-btn" href="#cartModal" data-toggle="modal">
     <i class="fas fa-shopping-cart my-float"></i>
@@ -151,14 +113,15 @@
 
   <!-- Modal HTML -->
   <div id="loginModal" class="modal fade  rounded-0">
-    <div class="modal-dialog h-100 my-0 mx-auto d-flex flex-column justify-content-center modal-login  rounded-0">
+    <div class="modal-dialog h-100 my-0  d-flex flex-column justify-content-center modal-login  rounded-0">
       <div class="modal-content  rounded-0">
         <form action="#" method="post" onsubmit="event.preventDefault(); checkLogin();">
           <div class="modal-header rounded-0 bg-white">        
             <h5 class="modal-title">WELCOME TO E-BAZAR</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
-          <div class="modal-body">        
+          <div class="modal-body">  
+            <img class="mb-4" src="./img/welcome.svg" alt="Card image" width="100%" height="200px">      
             <div class="form-group">
               <label>Username</label>
               <input type="text" class="form-control rounded-0" id="username" required="required">
@@ -171,7 +134,7 @@
               
               <input type="password" class=" rounded-0 form-control" id="password" required="required">
             </div>
-            <small>Don't have an account? <a href="https://poxyx.github.io/e-bazar/register.html" class="purple text-decoration-none"> Sign up here </a></small>
+            <small>Don't have an account? <a href="https://poxyx.github.io/register.html" class="purple text-decoration-none"> Sign up here </a></small>
             <div id="warning"></div>
           </div>
           <div class="modal-footer rounded-0 bg-white">
@@ -184,7 +147,7 @@
 
 
     <div id="cartModal" class="modal fade  rounded-0">
-    <div class="modal-dialog h-100 my-0 mx-auto d-flex flex-column justify-content-center modal-login  rounded-0">
+    <div class="modal-dialog h-100 my-0 d-flex flex-column justify-content-center modal-login  rounded-0">
       <div class="modal-content  rounded-0">
           <div class="modal-header rounded-0 bg-white">        
             <h5 class="modal-title">CART</h5>
