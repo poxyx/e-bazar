@@ -1,33 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title></title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <title>E-bazar in Ranau Town | Order Now</title><!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"><!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet"><!-- Custom styles for this template -->
+  <link href="css/main.css" rel="stylesheet">
 </head>
-<body onload="getUser()">
-
-
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light fixed-top bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand purple" href="#"><b class="purple">E-BAZAR</b></a> 
+    </div>
+  </nav><br>
+  <br>
+  <div class="container mt-5">
+    <span></span>
+    <h4><span><b class="purple d-flex justify-content-center"><span class="mr-2">PARTNER</span> LOGIN</b></span></h4><br>
+    <br>
+    <div class="row mt-3 mb-3">
+      <div class="col-12">
         <form action="#" method="post" onsubmit="event.preventDefault(); checkLogin();">
-          <div class="modal-body">        
+          <div class="modal-body">
             <div class="form-group">
-              <label>Username</label>
-              <br>
-              <input type="text" class="form-control rounded-0" id="username" required="required">
+              <label>Username</label><br>
+              <input class="form-control rounded-0" id="username" required="required" type="text">
             </div>
             <div class="form-group">
-              <label>Password</label>      
-              <br>        
-              <input type="password" class=" rounded-0 form-control" id="password" required="required">
-            </div>
-            <br>
-            <small>Don't have an account? <a href="https://poxyx.github.io/e-bazar/register_restaurant.html" class="purple text-decoration-none"> Sign up here </a></small>
-            <div id="warning"></div>
-            <br>
+              <label>Password</label><br>
+              <input class=" rounded-0 form-control" id="password" required="required" type="password">
+            </div><br>
+            <small>Don't have an account? <a class="purple text-decoration-none" href="https://poxyx.github.io/e-bazar/register_restaurant.html">Sign up here</a></small>
+            <div id="warning"></div><br>
+            <input class="w-100 btn btn-primary pull-right rounded-0" type="submit" value="LOGIN">
           </div>
-            <input type="submit" class="w-100 btn btn-primary pull-right  rounded-0" value="LOGIN">
         </form>
-
+      </div>
+    </div>
+  </div><br>
+  <br>
+  <!-- Bootstrap core JavaScript -->
+   
+  <script src="vendor/jquery/jquery.min.js">
+  </script> 
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
 </body>
 </html>
+
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
   <!-- Add Firebase products that you want to use -->
@@ -49,29 +76,6 @@
     firebase.initializeApp(firebaseConfig);
     let database = firebase.database();
 
-    function logoutUser()
-    {
-      sessionStorage.clear();
-      window.location.replace("https://poxyx.github.io/e-bazar/login_restaurant.html");
-    }
-
-    function getUser()
-    {
-        var user = sessionStorage.getItem("user");
-        if(user != null) 
-        {
-            document.getElementById("user_login").innerHTML = user.toUpperCase();
-            document.getElementById("user_menu").removeAttribute("style");
-            document.getElementById("login_menu").remove();
-        }
-    }
-
-    function loginSuccess(user)
-    {
-         sessionStorage.setItem("user", user.username);
-         sessionStorage.setItem("phone", user.phone);
-         window.location.replace("https://poxyx.github.io/e-bazar/restaurant_admin.html");
-    }
 
     function userNotFound()
     {
