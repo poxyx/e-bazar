@@ -1,36 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- Add two inputs for "phoneNumber" and "code" -->
-    <input type="tel" id="phoneNumber" placeholder="phone-no"/>
-    <br><hr>
-    <input type="text" id="name" placeholder="username" />
-    <br><hr>
-    <input type="password" id="password" placeholder="password" />
-    <br><hr>
-    <input type="text" id="code" placeholder="verification code" />
-    <!-- Add two buttons to submit the inputs -->
-    <button id="sign-in-button" onclick="submitPhoneNumberAuth()">
-     GET CODE
-    </button>   
-    <br><hr>
-
-    <!-- Add a container for reCaptcha -->
-    <div id="recaptcha-container"></div>
-
-    <br><hr>
-    <button id="confirm-code" onclick="submitPhoneNumberAuthCode()">
-      SIGN UP
-    </button>
-    <button id="confirm-code" onclick="submitLogoutAuth()">
-      LOG OUT
-    </button>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <title>E-bazar in Ranau Town | Order Now</title><!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"><!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet"><!-- Custom styles for this template -->
+  <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light fixed-top bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand purple" href="#"><b class="purple">E-BAZAR</b></a>
+    </div>
+  </nav><br>
+  <br>
+  <div class="container mt-5">
+    <span></span>
+    <h4><span><b class="purple d-flex justify-content-center">REGISTER</b></span></h4><br>
+    <br>
+    <div class="row mt-3 mb-3">
+      <div class="col-12">
+        <!-- Add two inputs for "phoneNumber" and "code" -->
+        <div class="form-group">
+          <label>Phone Number</label><br>
+          <input class="form-control rounded-0" id="phoneNumber" placeholder="example : +601124563878" type="tel">
+        </div>
+        <div class="form-group">
+          <label>Username</label><br>
+          <input class="form-control rounded-0" id="name"  type="text">
+        </div>
+        <div class="form-group">
+          <label>Password</label><br>
+          <input class="form-control rounded-0" id="password"  type="password">
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+              <label>Verification Code</label><br>
+              <input class="form-control rounded-0" id="code" type="text">
+            </div>
+            <div class="col-6">
+              <label>Send To Mobile</label><br>
+               <button class="w-100 btn btn-primary rounded-0" id="sign-in-button" onclick="submitPhoneNumberAuth()">GET CODE</button> 
+            </div>
+        </div><!-- Add two buttons to submit the inputs -->
+        <div id="recaptcha-container"></div><br>
+        <button id="confirm-code" class="w-100 btn btn-primary rounded-0 mt-2" onclick="submitPhoneNumberAuthCode()">SIGN UP</button> 
+      </div>
+    </div>
+  </div><br>
+  <br>
+  <!-- Bootstrap core JavaScript -->
+   
+  <script src="vendor/jquery/jquery.min.js">
+  </script> 
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
+</body>
+</html>
 
 
     <!-- Add the latest firebase dependecies from CDN -->
@@ -138,6 +171,5 @@
         }
       });
     </script>
-  </body>
-</html>
+
 
