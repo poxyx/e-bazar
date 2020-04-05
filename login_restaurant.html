@@ -19,7 +19,7 @@
               <input type="password" class=" rounded-0 form-control" id="password" required="required">
             </div>
             <br>
-            <small>Don't have an account? <a href="https://poxyx.github.io/register_restaurant.html" class="purple text-decoration-none"> Sign up here </a></small>
+            <small>Don't have an account? <a href="https://poxyx.github.io/e-bazar/register_restaurant.html" class="purple text-decoration-none"> Sign up here </a></small>
             <div id="warning"></div>
             <br>
           </div>
@@ -52,7 +52,7 @@
     function logoutUser()
     {
       sessionStorage.clear();
-      window.location.replace("https://poxyx.github.io/login_restaurant.html");
+      window.location.replace("https://poxyx.github.io/e-bazar/login_restaurant.html");
     }
 
     function getUser()
@@ -70,7 +70,7 @@
     {
          sessionStorage.setItem("user", user.username);
          sessionStorage.setItem("phone", user.phone);
-         window.location.replace("https://poxyx.github.io/restaurant_admin.html");
+         window.location.replace("https://poxyx.github.io/e-bazar/restaurant_admin.html");
     }
 
     function userNotFound()
