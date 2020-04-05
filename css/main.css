@@ -235,6 +235,10 @@ footer.footer {
   margin-top:22px;
 }
 
+.text-grey {
+  color:#707070 !important;
+}
+
 @media screen and (max-width: 767px) {
 .mobile-space {margin-top:10px;}
 }
