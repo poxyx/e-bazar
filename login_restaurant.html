@@ -77,6 +77,13 @@
     let database = firebase.database();
 
 
+    function loginSuccess(user)
+    {
+         sessionStorage.setItem("user", user.username);
+         sessionStorage.setItem("phone", user.phone);
+         window.location.replace("https://poxyx.github.io/e-bazar/restaurant_admin.html");
+    }
+
     function userNotFound()
     {
          let msg = "Please register your account...";
