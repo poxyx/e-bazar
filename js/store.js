@@ -41,6 +41,8 @@ function addItemToCart(title,price)
 
 			`
 		);
+
+	updateCartTotal();
 }
 
 function quantityChanged(event)
@@ -106,6 +108,7 @@ function updateCartTotal()
 
     total = Math.round(total * 100) / 100;
     document.getElementsByClassName('cart-total-price')[0].innerText = total;
+    log(document.getElementsByClassName('cart-order-count')[0].innerText = cartItemContainer.length);
 }
    
 
