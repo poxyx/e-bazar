@@ -18,6 +18,7 @@
   <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <script src="js/store.js" async></script>
 
   <!-- Custom styles for this template -->
   <link href="css/main.css" rel="stylesheet">
@@ -46,7 +47,7 @@
       </div>
     </div>
   </nav>
-  <br><br>
+  <br><br> 
   <div class="container mt-5">
     <span><h4><b class="purple d-flex justify-content-center" id="stall_name">FOOD LIST</b></h4></span>
     <br>
@@ -56,7 +57,7 @@
     </div>
   </div>
 
-  <a class="float trigger-btn" href="#cartModal" data-toggle="modal">
+  <a class="float trigger-btn shadow" onclick="updateCartTotal();" href="#cartModal" data-toggle="modal">
     <i class="fas fa-shopping-cart my-float"></i>
   </a>
 
@@ -67,9 +68,29 @@
             <h5 class="modal-title">CART</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
-          <div class="modal-body">        
+          <div class="modal-body p-0">    
+            <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ITEM</th>
+                      <th>RM</th>
+                      <th>TOTAL</th>
+                    </tr>
+                  </thead>
+                  <tbody class="cart-body">
+                      <!-- APPEND ITEM HERE -->
+                  </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="2"></td>
+                        <td class="text-center">TOTAL : RM <span class="cart-total-price">18.07</span></td>
+                      </tr>
+                    </tfoot>
+                </table>  
+              </div>
           </div>
-          <div class="modal-footer rounded-0 bg-white">
+          <div class="modal-footer rounded-0 bg-white mt-n3">
             <input type="submit" class="w-100 btn btn-primary pull-right  rounded-0" value="CHECKOUT">
           </div>
       </div>
@@ -190,15 +211,15 @@
                                     <div class="card-body">
                                       <div class="row">
                                         <div class="col-10">
-                                          <h6 class="card-title">${ o.name.toUpperCase() }</h6>
+                                          <h6 class="card-title shop-item-title">${ o.name.toUpperCase() }</h6>
                                         </div>
                                         <div class="col-2">
                                          <div class="d-flex justify-content-end mt-1"> 
-                                              <i class="fas fa-plus-circle purple fa-2x"></i>
+                                         <button class="btn rounded-0 btn-sm btn-primary" onclick="addToCartClicked(this)">ADD </button>                                             
                                           </div>
                                         </div>
                                       </div>
-                                      <p class="card-text"><b><small>MYR ${o.price}</small></b></p>
+                                      <p class="card-text"><b><small>MYR <span class="shop-item-price">${o.price}</span></small></b></p>
                                     </div>
                                   </div>
                                 </div>
