@@ -57,15 +57,11 @@
     </div>
   </div>
 
-  <a class="float trigger-btn shadow" onclick="updateCartTotal();" href="#cartModal" data-toggle="modal">
-    <i class="fas fa-shopping-cart my-float"></i>
-  </a>
-
   <div id="cartModal" class="modal fade  rounded-0">
   <div class="modal-dialog h-100 my-0  d-flex flex-column justify-content-center modal-login  rounded-0">
       <div class="modal-content  rounded-0">
           <div class="modal-header rounded-0 bg-white">        
-            <h5 class="modal-title">CART</h5>
+            <h5 class="modal-title">ORDER</h5>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body p-0">    
@@ -98,6 +94,13 @@
   </div> 
 
   <input type="hidden" id="seller_phone">
+
+  <nav class="border-top navbar fixed-bottom navbar-light bg-white rounded-0 shadow">
+    <a class="navbar-brand  mx-auto purple trigger-btn" onclick="updateCartTotal();" href="#cartModal" data-toggle="modal">
+      <i class="fas fa-utensils fa-xs mr-2 ml-2"></i> <small>MY ORDER</small> 
+      <span class="ml-2 badge badge-light"><small>4</small></span>
+    </a>
+  </nav>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -210,7 +213,7 @@
                       foodList.insertAdjacentHTML('beforeend', 
                         `
                                 <div class="col-12 col-md-4 mb-3">
-                                  <div class="card shadow-sm rounded-0">
+                                  <div class="card rounded-0">
                                     <div class="card-body">
                                       <div class="row">
                                         <div class="col-10">
@@ -218,7 +221,7 @@
                                         </div>
                                         <div class="col-2">
                                          <div class="d-flex justify-content-end mt-1"> 
-                                         <button class="btn rounded-0 btn-sm btn-primary" onclick="addToCartClicked(this)">ADD </button>                                             
+                                         <button class="metarial-button ripple" onclick="addToCartClicked(this)">ADD </button>                                             
                                           </div>
                                         </div>
                                       </div>

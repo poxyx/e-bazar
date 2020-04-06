@@ -295,6 +295,45 @@ footer.footer {
   to {bottom: 0; opacity: 0;}
 }
 
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: #9b59b6 radial-gradient(circle, transparent 1%, #d5b8ff 1%) center/15000%;
+}
+.ripple:active {
+  background-color: #9b59b6;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+
+
+.metarial-button {
+  border: none;
+padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  background-color: #9b59b6;
+
+  outline: none;
+}
+
+.metarial-button:focus {
+outline: none;
+}
+
+.button:focus {
+outline: none;
+}
+
+
 @media screen and (max-width: 767px) {
 .mobile-space {margin-top:10px;}
 }

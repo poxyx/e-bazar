@@ -67,7 +67,12 @@ function confirmClicked()
 	phone = document.getElementById("seller_phone");
 	phone = "+6011-51843369"; //dummy
 
-	window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=I%20want%20to%20find%20out%20about%20your%20products`);
+	let orderIdUrl = ``;
+	let text = `
+		E-BAZAR : NEW ORDER,VIEW HERE ${ orderIdUrl }/ 
+	`;
+
+	window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=${text}`);
 }
 
 function log(data)
