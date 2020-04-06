@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>E-bazar in Ranau Town | Order Now </title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="css/main.css" rel="stylesheet">
+
+</head>
+
+<body onload="checkOrder()">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light fixed-top bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand purple mx-auto" href="#"><b class="purple">E-BAZAR</b></a>
+    </div>
+  </nav>
+  <br><br>
+  <div class="container mt-5">
+<!--     <span><h4><b class="purple d-flex justify-content-center">ORDER</b></h4></span>
+    <br> -->
+    <img class="mb-4" src="./img/order.svg" alt="Card image" width="100%" height="150px">
+    <div class="row mt-3 mb-3">
+      <div class="table-responsive">
+      	<table class="table">
+		    <thead>
+		      <tr>
+		        <th>ITEM</th>
+		        <th>RM</th>
+		        <th>QUANTITY</th>
+		        <!-- <th>TOTAL</th> -->
+		      </tr>
+		    </thead>
+		    <tbody id="order_list">
+				<!-- <div class="spinner-border"></div> -->
+		    </tbody>
+		      <tfoot class="cart-footer border-bottom">
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="text-center">TOTAL : RM <span class="cart-total-price">0.00</span></td>
+                  </tr>
+              </tfoot>
+		  </table>
+
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+
+  <script>
+
+    let firebaseConfig = {
+      apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
+      authDomain: "e-bazar-f36a6.firebaseapp.com",
+      databaseURL: "https://e-bazar-f36a6.firebaseio.com",
+      projectId: "e-bazar-f36a6",
+      storageBucket: "e-bazar-f36a6.appspot.com",
+      messagingSenderId: "442307013973",
+      appId: "1:442307013973:web:4d7efafee476c323ec53dc",
+      measurementId: "G-ZMND22GR0T"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    let database = firebase.database();
+
+
+    function getUrlVars()
+	{
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value)
+	    {
+	        vars[key] = value;
+	    });
+	    return vars;
+	}
+
+
+    function checkOrder()
+    {
+
+        let getOrder = firebase.database().ref('order/' + getUrlVars()["orderid"]);
+
+        getOrder.on('value', function(snapshot) 
+        {
+            let obj = snapshot.val();
+            let orderList = document.getElementById("order_list");
+            let orderHtml = "";
+
+            orderList.innerHTML = "";
+
+            for (var i = 0; i < obj.details.length - 1; i++)
+    		{
+    			orderHtml += `
+
+    			<tr>
+			        <td>${obj.details[i].title}</td>
+			        <td>${obj.details[i].price}</td>
+			        <td class="text-center">${obj.details[i].quantity}</td>
+			        <!--<td>${obj.details[i].total}</td>-->
+			      </tr>
+
+    			`
+    		}
+
+    		$('.cart-total-price').text(obj.details[obj.details.length - 1].total);
+
+            orderList.insertAdjacentHTML('beforeend',orderHtml);
+            
+        });
+    }
+
+
+
+  </script>
+    
+</body>
+
+</html>

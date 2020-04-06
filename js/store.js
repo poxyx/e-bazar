@@ -1,29 +1,156 @@
+$( document ).ready(function() 
+{
+
+getUser();
+
+let database = firebase.database();
+
+function logoutUser()
+{
+    sessionStorage.clear();
+    location.reload();
+}
+
+function getUser()
+{
+    var user = sessionStorage.getItem("user");
+    if (user != null)
+    {
+        document.getElementById("user_login").innerHTML = user.toUpperCase();
+        document.getElementById("user_menu").removeAttribute("style");
+        document.getElementById("login_menu").remove();
+    }
+    else
+    {
+
+        window.location.replace(window.location.origin + "/e-bazar/index.html");
+    }
+
+    checkFood();
+}
+
+function loginSuccess(user)
+{
+    sessionStorage.setItem("user", user.username);
+    sessionStorage.setItem("phone", user.phone);
+    location.reload();
+}
+
+function userNotFound()
+{
+    let msg = "Please register your account...";
+    document.getElementById("warning").innerHTML = `<div class="alert alert-dismissible fade show rounded-0 alert-warning mt-2 mb-n3">
+         <button type="button" class="btn-sm close" data-dismiss="alert">&times;</button>
+         <small><strong>User not found! </strong> ${ msg } </small>
+         </div>`;
+}
+
+
+function checkLogin()
+{
+    let loginUser = firebase.database().ref('users/' + document.getElementById("username").value);
+    loginUser.on('value', function(snapshot)
+    {
+        if (snapshot.val() == null)
+        {
+            userNotFound()
+
+        }
+        else
+        {
+
+            snapshot.val().password == document.getElementById("password").value ? loginSuccess(snapshot.val()) : userNotFound();
+        }
+    });
+}
+
+let exclude = ['brand', 'collectionTime', 'cuisine', 'deliveryFee',
+    'desc', 'location', 'maxDeliveryTime', 'minDeliveryTime', 'minOrderForDelivery', 'orderType', 'password', 'phone', 'username'
+];
+
+function getUrlVars()
+{
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value)
+    {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function checkFood()
+{
+    let userMenu = firebase.database().ref('restaurant/' + getUrlVars()["stall"]);
+    userMenu.on('value', function(snapshot)
+    {
+        let obj = snapshot.val();
+        let foodList = document.getElementById("food_list");
+        let seller_phone = document.getElementById("seller_phone");
+        seller_phone.value = obj.phone;
+
+        foodList.innerHTML = "";
+
+        for (var key in obj)
+        {
+
+            if (exclude.indexOf(key) == -1)
+            {
+                let o = obj[key].menu;
+
+                foodList.insertAdjacentHTML('beforeend',
+                    `
+                                <div class="col-12 col-md-4 mb-3">
+                                  <div class="card rounded-0">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-10">
+                                          <h6 class="card-title shop-item-title">${ o.name.toUpperCase() }</h6>
+                                        </div>
+                                        <div class="col-2">
+                                         <div class="d-flex justify-content-end mt-1"> 
+                                         <button class="metarial-button ripple" onclick="addToCartClicked(this)">ADD </button>                                             
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <p class="card-text"><b><small>MYR <span class="shop-item-price">${o.price}</span></small></b></p>
+                                    </div>
+                                  </div>
+                                </div>
+                        `);
+            }
+
+        }
+    });
+}
+    
+});
+
 
 function addToCartClicked(event)
 {
-	let shopItem = event.parentElement.parentElement.parentElement.parentElement;
-	let title = shopItem.getElementsByClassName('shop-item-title')[0].innerText;
-	let price = parseFloat(shopItem.getElementsByClassName('shop-item-price')[0].innerText);
+    let shopItem = event.parentElement.parentElement.parentElement.parentElement;
+    let title = shopItem.getElementsByClassName('shop-item-title')[0].innerText;
+    let price = parseFloat(shopItem.getElementsByClassName('shop-item-price')[0].innerText);
 
-	addItemToCart(title,price);
+    addItemToCart(title, price);
 }
 
-function addItemToCart(title,price)
+function addItemToCart(title, price)
 {
-	let cartBodyContainer = document.getElementsByClassName('cart-body')[0];
-	let cartItemName = cartBodyContainer.getElementsByClassName('cart-item-title');
+    let cartBodyContainer = document.getElementsByClassName('cart-body')[0];
+    let cartItemName = cartBodyContainer.getElementsByClassName('cart-item-title');
 
-	for(var i = 0;i < cartItemName.length;i++)
-	{
-		if(cartItemName[i].innerText == title)
-		{
-			alert('This item is already added to the cart');
-			return;
-		}
-	}
+    for (var i = 0; i < cartItemName.length; i++)
+    {
+        if (cartItemName[i].innerText == title)
+        {
+            alert('This item is already added to the cart');
+            return;
+        }
+    }
 
-	cartBodyContainer.insertAdjacentHTML('beforeend', 
-			`
+    cartBodyContainer.insertAdjacentHTML('beforeend',
+        `
 				  <tr class="cart-items">
                       <td class="h6 cart-item-title">${title}</td>
                       <td><span class="cart-price">${price}</span></td>
@@ -40,9 +167,9 @@ function addItemToCart(title,price)
                     </tr>
 
 			`
-		);
+    );
 
-	updateCartTotal();
+    updateCartTotal();
 }
 
 function quantityChanged(event)
@@ -55,26 +182,58 @@ function quantityChanged(event)
 }
 
 
-function confirmClicked()
+function writeUserData(orderId, order) {
+    firebase.database().ref('order/' + orderId).set({
+        details: order
+    });
+ }
+
+
+async function confirmClicked()
 {
-	alert("Thank you for your purchased");
-	let cartBodyContainer = document.getElementsByClassName('cart-body')[0];
+    let cartBodyContainer = document.getElementsByClassName('cart-body')[0];
+    let cartFooterContainer = document.getElementsByClassName('cart-footer')[0];
+    let titleList = cartBodyContainer.getElementsByClassName('cart-item-title');
+    let priceList = cartBodyContainer.getElementsByClassName('cart-price');
+    let quantityList = cartBodyContainer.getElementsByClassName('cart-quantity-input');
 
-	while (cartBodyContainer.hasChildNodes()) 
-	{
-		cartBodyContainer.removeChild(cartBodyContainer.firstChild)
-	}
+    var order = {};
 
-	updateCartTotal();
-	phone = document.getElementById("seller_phone");
-	phone = "+6011-51843369"; //dummy
+    for (let i = 0; i < titleList.length; i++)
+    {
+        order[i] = 
+        {
+        	title: titleList[i].innerText,
+        	price: priceList[i].innerText,
+        	quantity: quantityList[i].value,
+        	total: Math.round((parseFloat(parseFloat(priceList[i].innerText) * parseFloat(quantityList[i].value))) * 100 ) / 100
+        };
+    }
 
-	let orderIdUrl = ``;
-	let text = `
-		E-BAZAR : NEW ORDER,VIEW HERE ${ orderIdUrl }/ 
+    order[titleList.length] = 
+    {
+        total: parseFloat(cartFooterContainer.innerText.replace("TOTAL : RM ","").trim())
+    };
+
+    while (cartBodyContainer.hasChildNodes())
+    {
+        cartBodyContainer.removeChild(cartBodyContainer.firstChild)
+    }
+
+    let genOrderId =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+    await writeUserData(genOrderId, order);
+
+    phone = document.getElementById("seller_phone");
+    phone = "+6011-51843369"; //dummy
+
+    let orderIdUrl = `https://poxyx.github.io/e-bazar/order.html?orderid=${genOrderId}`;
+    let text = `
+		E-BAZAR : NEW ORDER,VIEW HERE ${ orderIdUrl }
 	`;
 
-	window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=${text}`);
+	updateCartTotal();
+    window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=${text}`);
 }
 
 function log(data)
@@ -108,7 +267,5 @@ function updateCartTotal()
 
     total = Math.round(total * 100) / 100;
     document.getElementsByClassName('cart-total-price')[0].innerText = total;
-    log(document.getElementsByClassName('cart-order-count')[0].innerText = cartItemContainer.length);
+    document.getElementsByClassName('cart-order-count')[0].innerText = cartItemContainer.length;
 }
-   
-

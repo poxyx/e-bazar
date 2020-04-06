@@ -330,7 +330,7 @@ outline: none;
 }
 
 .button:focus {
-outline: none;
+outline: none !important;
 }
 
 

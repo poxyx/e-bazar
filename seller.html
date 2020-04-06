@@ -18,6 +18,29 @@
   <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+
+  <script>
+    let firebaseConfig = {
+      apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
+      authDomain: "e-bazar-f36a6.firebaseapp.com",
+      databaseURL: "https://e-bazar-f36a6.firebaseio.com",
+      projectId: "e-bazar-f36a6",
+      storageBucket: "e-bazar-f36a6.appspot.com",
+      messagingSenderId: "442307013973",
+      appId: "1:442307013973:web:4d7efafee476c323ec53dc",
+      measurementId: "G-ZMND22GR0T"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
   <script src="js/store.js" async></script>
 
   <!-- Custom styles for this template -->
@@ -25,7 +48,7 @@
 
 </head>
 
-<body onload="getUser()">
+<body>
 
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light fixed-top bg-white shadow-sm">
@@ -77,7 +100,7 @@
                   <tbody class="cart-body">
                       <!-- APPEND ITEM HERE -->
                   </tbody>
-                    <tfoot>
+                  <tfoot class="cart-footer">
                       <tr>
                         <td colspan="2"></td>
                         <td class="text-center">TOTAL : RM <span class="cart-total-price">18.07</span></td>
@@ -102,143 +125,6 @@
     </a>
   </nav>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
-
-  <script>
-
-    let firebaseConfig = {
-      apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
-      authDomain: "e-bazar-f36a6.firebaseapp.com",
-      databaseURL: "https://e-bazar-f36a6.firebaseio.com",
-      projectId: "e-bazar-f36a6",
-      storageBucket: "e-bazar-f36a6.appspot.com",
-      messagingSenderId: "442307013973",
-      appId: "1:442307013973:web:4d7efafee476c323ec53dc",
-      measurementId: "G-ZMND22GR0T"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    let database = firebase.database();
-
-    function logoutUser()
-    {
-      sessionStorage.clear();
-      location.reload();
-    }
-
-    function getUser()
-    {
-        var user = sessionStorage.getItem("user");
-        if(user != null) 
-        {
-            document.getElementById("user_login").innerHTML = user.toUpperCase();
-            document.getElementById("user_menu").removeAttribute("style");
-            document.getElementById("login_menu").remove();
-        } else {
-
-            window.location.replace(window.location.origin + "/e-bazar/index.html");
-        }
-
-        checkFood();
-    }
-
-    function loginSuccess(user)
-    {
-         sessionStorage.setItem("user", user.username);
-         sessionStorage.setItem("phone", user.phone);
-         location.reload();
-    }
-
-    function userNotFound()
-    {
-         let msg = "Please register your account...";
-         document.getElementById("warning").innerHTML = `<div class="alert alert-dismissible fade show rounded-0 alert-warning mt-2 mb-n3">
-         <button type="button" class="btn-sm close" data-dismiss="alert">&times;</button>
-         <small><strong>User not found! </strong> ${ msg } </small>
-         </div>`;
-    }
-
-
-    function checkLogin()
-    {
-      let loginUser = firebase.database().ref('users/' + document.getElementById("username").value);
-        loginUser.on('value', function(snapshot) 
-        {
-            if(snapshot.val() == null)
-            {
-              userNotFound()
-
-            } else {
-
-              snapshot.val().password == document.getElementById("password").value ? loginSuccess(snapshot.val()) :  userNotFound();
-            }
-        });
-     }
-
-    let exclude = ['brand','collectionTime','cuisine','deliveryFee',
-    'desc','location','maxDeliveryTime','minDeliveryTime','minOrderForDelivery','orderType','password','phone','username'];
-
-    function getUrlVars() {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = value;
-        });
-        return vars;
-    }
-
-    function checkFood()
-    {       
-            let userMenu = firebase.database().ref('restaurant/' + getUrlVars()["stall"]);
-            userMenu.on('value', function(snapshot) 
-            {
-                let obj = snapshot.val();
-                let foodList = document.getElementById("food_list");
-                let seller_phone = document.getElementById("seller_phone");
-                seller_phone.value = obj.phone;
-
-                foodList.innerHTML = "";
-
-                for (var key in obj) {
-
-                  if(exclude.indexOf(key) == -1)
-                  {  
-                      let o = obj[key].menu;
-
-                      foodList.insertAdjacentHTML('beforeend', 
-                        `
-                                <div class="col-12 col-md-4 mb-3">
-                                  <div class="card rounded-0">
-                                    <div class="card-body">
-                                      <div class="row">
-                                        <div class="col-10">
-                                          <h6 class="card-title shop-item-title">${ o.name.toUpperCase() }</h6>
-                                        </div>
-                                        <div class="col-2">
-                                         <div class="d-flex justify-content-end mt-1"> 
-                                         <button class="metarial-button ripple" onclick="addToCartClicked(this)">ADD </button>                                             
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <p class="card-text"><b><small>MYR <span class="shop-item-price">${o.price}</span></small></b></p>
-                                    </div>
-                                  </div>
-                                </div>
-                        `);
-                  }
-
-                }
-            });
-        }
-
-
-  </script>
-    
 </body>
 
 </html>
