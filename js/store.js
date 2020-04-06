@@ -1,5 +1,4 @@
 
-
 function addToCartClicked(event)
 {
 	let shopItem = event.parentElement.parentElement.parentElement.parentElement;
@@ -12,10 +11,21 @@ function addToCartClicked(event)
 function addItemToCart(title,price)
 {
 	let cartBodyContainer = document.getElementsByClassName('cart-body')[0];
+	let cartItemName = cartBodyContainer.getElementsByClassName('cart-item-title');
+
+	for(var i = 0;i < cartItemName.length;i++)
+	{
+		if(cartItemName[i].innerText == title)
+		{
+			alert('This item is already added to the cart');
+			return;
+		}
+	}
+
 	cartBodyContainer.insertAdjacentHTML('beforeend', 
 			`
 				  <tr class="cart-items">
-                      <td class="h6">${title}</td>
+                      <td class="h6 cart-item-title">${title}</td>
                       <td><span class="cart-price">${price}</span></td>
                       <td>
                         <div class="row">
@@ -40,6 +50,24 @@ function quantityChanged(event)
         event.value = 1;
     }
     updateCartTotal();
+}
+
+
+function confirmClicked()
+{
+	alert("Thank you for your purchased");
+	let cartBodyContainer = document.getElementsByClassName('cart-body')[0];
+
+	while (cartBodyContainer.hasChildNodes()) 
+	{
+		cartBodyContainer.removeChild(cartBodyContainer.firstChild)
+	}
+
+	updateCartTotal();
+	phone = document.getElementById("seller_phone");
+	phone = "+6011-51843369"; //dummy
+
+	window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=I%20want%20to%20find%20out%20about%20your%20products`);
 }
 
 function log(data)
@@ -74,3 +102,5 @@ function updateCartTotal()
     total = Math.round(total * 100) / 100;
     document.getElementsByClassName('cart-total-price')[0].innerText = total;
 }
+   
+

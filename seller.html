@@ -91,12 +91,13 @@
               </div>
           </div>
           <div class="modal-footer rounded-0 bg-white mt-n3">
-            <input type="submit" class="w-100 btn btn-primary pull-right  rounded-0" value="CHECKOUT">
+            <button onclick="confirmClicked()" class="w-100 btn btn-primary pull-right  rounded-0"> CONFIRM </button>
           </div>
       </div>
     </div>
   </div> 
 
+  <input type="hidden" id="seller_phone">
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -195,6 +196,8 @@
             {
                 let obj = snapshot.val();
                 let foodList = document.getElementById("food_list");
+                let seller_phone = document.getElementById("seller_phone");
+                seller_phone.value = obj.phone;
 
                 foodList.innerHTML = "";
 
