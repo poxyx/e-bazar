@@ -50,7 +50,7 @@
                <button class="w-100 btn btn-success rounded-0" id="sign-in-button" onclick="submitPhoneNumberAuth()">GET CODE</button> 
             </div>
         </div><!-- Add two buttons to submit the inputs -->
-        <div class="w-100" id="recaptcha-container"></div><br>
+        <div class="w-100 d-flex justify-content-center" id="recaptcha-container"></div><br>
         <button id="confirm-code" class="w-100 btn btn-primary rounded-0 mt-2" onclick="submitPhoneNumberAuthCode()">SIGN UP</button> 
       </div>
     </div>
@@ -95,8 +95,8 @@
         {
           size: "normal",
           callback: function(response) {
-            console.log("success");
             submitPhoneNumberAuth();
+            $("#recaptcha-container").hide();
           }
         }
       );
@@ -111,6 +111,7 @@
           .signInWithPhoneNumber(phoneNumber, appVerifier)
           .then(function(confirmationResult) {
             window.confirmationResult = confirmationResult;
+            alert("Message sent");
           })
           .catch(function(error) {
             console.log(error);
@@ -126,6 +127,7 @@
           .confirm(code)
           .then(function(result) {
             var user = result.user;
+            alert("Register Success")
           })
           .catch(function(error) {
             console.log(error);

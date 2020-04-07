@@ -255,7 +255,7 @@ async function confirmClicked()
 
 	updateCartTotal();
 
-	await $('#cartModal').modal('hide');
+	await $('#modal').modal('hide');
 
     window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=${text}`);
 }
