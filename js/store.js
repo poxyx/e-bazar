@@ -253,7 +253,7 @@ async function confirmClicked()
 
 	updateCartTotal();
 
-	await $('#modal').modal('hide');
+	await $('.modal').modal('hide');
 
     window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=${text}`);
 }
