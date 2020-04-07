@@ -136,6 +136,12 @@ footer.footer {
   color: #9b59b6 !important;
 }
 
+.bg-purple {
+  background-color: #9b59b6 !important;
+  color: #fff;
+}
+
+
   .modal-login {
     width: auto;
   }

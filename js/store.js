@@ -100,7 +100,7 @@ function checkFood()
                 foodList.insertAdjacentHTML('beforeend',
                     `
                                 <div class="col-12 col-md-4 mb-3">
-                                  <div class="card rounded-0">
+                                  <div class="card rounded-0 shadow">
                                     <div class="card-body">
                                       <div class="row">
                                         <div class="col-10">
@@ -108,7 +108,7 @@ function checkFood()
                                         </div>
                                         <div class="col-2">
                                          <div class="d-flex justify-content-end mt-1"> 
-                                         <button class="metarial-button ripple" onclick="addToCartClicked(this)">ADD </button>                                             
+                                         <button class="rounded-0 metarial-button ripple" onclick="addToCartClicked(this)"><i class="fas fa-plus"></i></button>                                             
                                           </div>
                                         </div>
                                       </div>
@@ -125,12 +125,17 @@ function checkFood()
     
 });
 
+let orderAddCount = 0;
 
 function addToCartClicked(event)
 {
     let shopItem = event.parentElement.parentElement.parentElement.parentElement;
     let title = shopItem.getElementsByClassName('shop-item-title')[0].innerText;
     let price = parseFloat(shopItem.getElementsByClassName('shop-item-price')[0].innerText);
+    let cartQuantity = parseInt($('.cart-quantity-input').val() == "undefined" ? 1 : 0);
+
+    orderAddCount = orderAddCount + 1;
+    $('.cart-order-count').text(orderAddCount);
 
     addItemToCart(title, price);
 }
@@ -139,12 +144,16 @@ function addItemToCart(title, price)
 {
     let cartBodyContainer = document.getElementsByClassName('cart-body')[0];
     let cartItemName = cartBodyContainer.getElementsByClassName('cart-item-title');
+    let cartItemQuantity = cartBodyContainer.getElementsByClassName('cart-quantity-input');
+    $('.empty-order').remove();
 
     for (var i = 0; i < cartItemName.length; i++)
     {
         if (cartItemName[i].innerText == title)
         {
-            alert('This item is already added to the cart');
+            let orderQuantity = parseInt(parseInt(cartItemQuantity[i].value) + parseInt(1));
+            cartItemQuantity[i].value = orderQuantity;
+
             return;
         }
     }
@@ -197,6 +206,9 @@ async function confirmClicked()
     let priceList = cartBodyContainer.getElementsByClassName('cart-price');
     let quantityList = cartBodyContainer.getElementsByClassName('cart-quantity-input');
 
+    $('.cart-order-count').text("0");
+    orderAddCount = 0;
+
     var order = {};
 
     for (let i = 0; i < titleList.length; i++)
@@ -212,13 +224,22 @@ async function confirmClicked()
 
     order[titleList.length] = 
     {
-        total: parseFloat(cartFooterContainer.innerText.replace("TOTAL : RM ","").trim())
+        total: parseFloat($('.order-total-price').text()),
+        deliveryFee: parseFloat($('.order-delivery-fee').text())
     };
 
-    while (cartBodyContainer.hasChildNodes())
-    {
-        cartBodyContainer.removeChild(cartBodyContainer.firstChild)
-    }
+    $('.cart-body').html("");
+    // $('.cart-footer').html("");
+    $('.cart-body').html(
+    	`
+    	<tr class="empty-order">
+    		<td class='text-center p-3' colspan='3'>
+    			<img class=" mb-4" src="./img/empty.svg" alt="Card image" width="100%" height="100px">
+    			<p>NO ORDER PLACED</p>
+    		</td>
+    	</tr>
+    	`
+    );
 
     let genOrderId =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
@@ -233,6 +254,7 @@ async function confirmClicked()
 	`;
 
 	updateCartTotal();
+
     window.location.replace(`https://api.whatsapp.com/send?phone=${ phone }&text=${text}`);
 }
 
@@ -253,6 +275,7 @@ function updateCartTotal()
     let cartItemContainer = document.getElementsByClassName('cart-items');
 
     let total = 0;
+    let totalOrder = 0;
 
     for (let i = 0; i < cartItemContainer.length; i++)
     {
@@ -266,6 +289,15 @@ function updateCartTotal()
     }
 
     total = Math.round(total * 100) / 100;
-    document.getElementsByClassName('cart-total-price')[0].innerText = total;
-    document.getElementsByClassName('cart-order-count')[0].innerText = cartItemContainer.length;
+
+    if($('.cart-total-price').length != 0 ) 
+    {
+    	document.getElementsByClassName('cart-total-price')[0].innerText = total;
+    	
+    	total = total + parseFloat($('.order-delivery-fee').text());
+
+    	document.getElementsByClassName('order-total-price')[0].innerText = total;
+    }
+
+
 }
