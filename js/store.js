@@ -153,7 +153,7 @@ function addItemToCart(title, price)
         {
             let orderQuantity = parseInt(parseInt(cartItemQuantity[i].value) + parseInt(1));
             cartItemQuantity[i].value = orderQuantity;
-
+            updateCartTotal();
             return;
         }
     }
@@ -161,17 +161,13 @@ function addItemToCart(title, price)
     cartBodyContainer.insertAdjacentHTML('beforeend',
         `
 				  <tr class="cart-items">
-                      <td class="h6 cart-item-title">${title}</td>
-                      <td><span class="cart-price">${price}</span></td>
-                      <td>
-                        <div class="row">
-                          <div class="col-8">
-                             <input type="number" onchange="quantityChanged(this)" value="1" class="cart-quantity-input form-control">
-                          </div>
-                          <div class="col-4">
-                           <a href="javascript:void(0)" onclick="removeCartItem(this)"><i class="text-danger fas fa-trash-alt fa-xs"></i></a>
-                          </div>
-                        </div>
+                      <td class=" cart-item-title" width="40%"><small>${title}</small></td>
+                      <td width="30%"><span class="cart-price"><small>RM ${price}</small></span></td>
+                      <td width="25%">
+                        <input type="number" onchange="quantityChanged(this)" value="1" class="rounded-0 cart-quantity-input form-control">
+                      </td>
+                      <td width="5%">
+                         <a href="javascript:void(0)" onclick="removeCartItem(this)"><i class="text-danger fas fa-trash-alt fa-xs"></i></a>
                       </td>
                     </tr>
 
@@ -204,7 +200,7 @@ async function confirmClicked()
     let cartFooterContainer = document.getElementsByClassName('cart-footer')[0];
     let titleList = cartBodyContainer.getElementsByClassName('cart-item-title');
     let priceList = cartBodyContainer.getElementsByClassName('cart-price');
-    let quantityList = cartBodyContainer.getElementsByClassName('cart-quantity-input');
+    let quantityList = $('.cart-quantity-input');
 
     $('.cart-order-count').text("0");
     orderAddCount = 0;
@@ -218,7 +214,7 @@ async function confirmClicked()
         	title: titleList[i].innerText,
         	price: priceList[i].innerText,
         	quantity: quantityList[i].value,
-        	total: Math.round((parseFloat(parseFloat(priceList[i].innerText) * parseFloat(quantityList[i].value))) * 100 ) / 100
+        	total: Math.round((parseFloat(parseFloat(priceList[i].innerText.replace("RM ","")) * parseFloat(quantityList[i].value))) * 100 ) / 100
         };
     }
 
@@ -245,6 +241,8 @@ async function confirmClicked()
 
     await writeUserData(genOrderId, order);
 
+    log(order);
+
     phone = document.getElementById("seller_phone");
     phone = "+6011-51843369"; //dummy
 
@@ -268,7 +266,7 @@ function log(data)
 
 function removeCartItem(event)
 {
-    event.parentElement.parentElement.parentElement.parentElement.remove();
+    event.parentElement.parentElement.remove();
     updateCartTotal();
 }
 
@@ -301,5 +299,6 @@ function updateCartTotal()
     	document.getElementsByClassName('order-total-price')[0].innerText = total;
     }
 
+    $('.cart-total-rm').text(total);
 
 }

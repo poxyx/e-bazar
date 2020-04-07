@@ -1,138 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>E-bazar in Ranau Town | Order Now </title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom fonts for this template -->
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+  <title>E-bazar in Ranau Town | Order Now</title><!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"><!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js"></script>
+  <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet">
+  <link href="css/bootstrap-fs-modal.min.css" rel="stylesheet"><!-- Bootstrap core JavaScript -->
 
-  <script>
-    let firebaseConfig = {
-      apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
-      authDomain: "e-bazar-f36a6.firebaseapp.com",
-      databaseURL: "https://e-bazar-f36a6.firebaseio.com",
-      projectId: "e-bazar-f36a6",
-      storageBucket: "e-bazar-f36a6.appspot.com",
-      messagingSenderId: "442307013973",
-      appId: "1:442307013973:web:4d7efafee476c323ec53dc",
-      measurementId: "G-ZMND22GR0T"
-    };
-
-    firebase.initializeApp(firebaseConfig);
+  <script src="vendor/jquery/jquery.min.js">
   </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script><!-- The core Firebase JS SDK is always required and must be listed first -->
 
-  <script src="js/store.js" async></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js">
+  </script><!-- Add Firebase products that you want to use -->
 
-  <!-- Custom styles for this template -->
+  <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-database.js">
+  </script>
+  <script>
+      let firebaseConfig = {
+        apiKey: "AIzaSyDLrSd3njKWjmM7W9Oy_CmxsQ6RLfsJqCg",
+        authDomain: "e-bazar-f36a6.firebaseapp.com",
+        databaseURL: "https://e-bazar-f36a6.firebaseio.com",
+        projectId: "e-bazar-f36a6",
+        storageBucket: "e-bazar-f36a6.appspot.com",
+        messagingSenderId: "442307013973",
+        appId: "1:442307013973:web:4d7efafee476c323ec53dc",
+        measurementId: "G-ZMND22GR0T"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+  </script>
+  <script async src="js/store.js">
+  </script><!-- Custom styles for this template -->
   <link href="css/main.css" rel="stylesheet">
-
 </head>
-
-<body>
-
+<body class="bootstrap-fs-modal">
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light fixed-top bg-white shadow-sm">
     <div class="container">
-      <a class="navbar-brand purple" href="#"><b class="purple">E-BAZAR</b></a>
-      <a class="text-decoration-none border-0 rounded-0 purple trigger-btn" href="#loginModal" id="login_menu" data-toggle="modal">
-        <i class="far fa-user purple mr-2"></i> LOGIN
-      </a>
+      <a class="navbar-brand purple" href="#"><b class="purple">E-BAZAR</b></a> <a class="text-decoration-none border-0 rounded-0 purple trigger-btn" data-toggle="modal" href="#loginModal" id="login_menu"><i class="far fa-user purple mr-2"></i> LOGIN</a>
       <div class="dropdown" id="user_menu" style="display: none;">
-        <a class="dropdown-toggle purple" data-toggle="dropdown">
-          <i class="far fa-user purple mr-2"></i> <span id="user_login">USER</span>
-        </a>
+        <a class="dropdown-toggle purple" data-toggle="dropdown"><i class="far fa-user purple mr-2"></i> <span id="user_login">USER</span></a>
         <div class="dropdown-menu mr-5 mt-3 rounded-0">
-          <a class="dropdown-item" href="#">My orders</a>
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Help</a>
-          <a class="dropdown-item" href="#" onclick="event.preventDefault(); logoutUser();">Logout</a>
+          <a class="dropdown-item" href="#">My orders</a> <a class="dropdown-item" href="#">Profile</a> <a class="dropdown-item" href="#">Help</a> <a class="dropdown-item" href="#" onclick="event.preventDefault(); logoutUser();">Logout</a>
         </div>
       </div>
     </div>
-  </nav>
-  <br><br> 
+  </nav><br>
+  <br>
   <div class="container mt-5">
-    <span><h4><b class="purple d-flex justify-content-center" id="stall_name">FOOD LIST</b></h4></span>
-    <br>
-    <img class="mb-4" src="./img/food.svg" alt="Card image" width="100%" height="200px">
+    <span></span>
+    <h4><span><b class="purple d-flex justify-content-center" id="stall_name">MENU</b></span></h4><br>
+    <img alt="Card image" class="mb-4" height="200px" src="./img/food.svg" width="100%">
     <div class="row mt-3 mb-5" id="food_list">
       <div class="spinner-border"></div>
     </div>
   </div>
-
-  <div id="cartModal" class="modal fade  rounded-0">
-  <div class="modal-dialog h-100 my-0  d-flex flex-column justify-content-center modal-login  rounded-0">
-      <div class="modal-content  rounded-0">
-          <div class="modal-header rounded-0 bg-purple">        
-            <h5 class="modal-title">ORDER</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times fa-xs text-white"></i></button>
+  <div aria-hidden="true" aria-labelledby="modalBottomLabel" class="modal fade modal-fullscreen modal-fullscreen-bottom-footer" id="modalBottom" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header rounded-0">
+          <h5 class="modal-title ml-5 text-white" id="modalLargeLabel">KEMASKINI PESANAN</h5>
+          <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tbody class="cart-body">
+                <!-- APPEND ITEM HERE -->
+              </tbody>
+              <tfoot class="cart-footer">
+                <tr>
+                  <td colspan="2"><small>SUBTOTAL</small></td>
+                  <td class="text-center" colspan="2">
+                    <div class="d-flex justify-content-end">
+                      <small>RM<span class="cart-total-price ml-2">0</span></small>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>DELIVERY FEE</small></td>
+                  <td class="text-center" colspan="2">
+                    <div class="d-flex justify-content-end">
+                      <small>RM<span class="order-delivery-fee ml-2">3</span></small>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><small>TOTAL</small></td>
+                  <td class="text-center" colspan="2">
+                    <div class="d-flex justify-content-end">
+                      <small>RM<span class="order-total-price ml-2">0</span></small>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
-          <div class="modal-body p-0">    
-            <div class="table-responsive">
-              <table class="table">
-                  <thead>
-                    <tr>
-                      <th>ITEM</th>
-                      <th>RM</th>
-                      <th>TOTAL</th>
-                    </tr>
-                  </thead>
-                  <tbody class="cart-body">
-                      <!-- APPEND ITEM HERE -->
-                  </tbody>
-                  <tfoot class="cart-footer">
-                      <tr>
-                        <td colspan="2"><small>SUBTOTAL</small></td>
-                        <td  class="text-center"><div class="d-flex justify-content-end">RM<span class="cart-total-price ml-2">0</span></div></td>
-                      </tr>
-                      <tr>
-                        <td colspan="2"><small>DELIVERY FEE</small></td>
-                        <td  class="text-center"><div class="d-flex justify-content-end">RM<span class="order-delivery-fee ml-2">3</span></div></td>
-                      </tr>
-                      <tr>
-                        <td colspan="2">TOTAL</td>
-                        <td  class="text-center"><div class="d-flex justify-content-end">RM<span class="order-total-price ml-2">0</span></div></td>
-                      </tr>
-                    </tfoot>
-                </table>  
-              </div>
-          </div>
-          <div class="modal-footer rounded-0 bg-white mt-n3">
-            <button onclick="confirmClicked()" class="w-100 btn btn-primary pull-right  rounded-0"> CONFIRM </button>
-          </div>
+        </div>
+        <div class="modal-footer bg-success rounded-0">
+          <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button> 
+          <button class="btn btn-default mx-auto w-100" type="button" onclick="confirmClicked()">
+            <span class="text-white text-decoration-none"><i class="fab fa-whatsapp mr-2 text-white"></i> HANTAR PESANAN</span>
+          </button> 
+        </div>
       </div>
     </div>
-  </div> 
-
-  <input type="hidden" id="seller_phone">
-
+  </div>
+  <form>
+    <input id="seller_phone" type="hidden">
+  </form>
   <nav class="border-top navbar fixed-bottom navbar-light bg-white rounded-0 shadow">
-    <a class="navbar-brand  mx-auto purple trigger-btn" onclick="updateCartTotal();" href="#cartModal" data-toggle="modal">
-      <i class="fas fa-utensils fa-xs mr-2 ml-2"></i> <small>MY ORDER</small> 
-      <span class="ml-2 badge badge-light"><small class="cart-order-count">0</small></span>
+    <a class="navbar-brand d-flex justify-content-start purple trigger-btn" data-toggle="modal" href="#modalBottom" onclick="updateCartTotal();">
+     <small><i class="fas fa-shopping-basket mr-2 ml-2"></i> LIHAT PESANAN</small> 
+
+                <small><span class="cart-order-count ml-3">0</span></small>
+           
     </a>
+     <a href="javascript:void(0)" class="d-flex justify-content-end purple text-decoration-none"><b>RM <span class="cart-total-rm">0</span></b></a>
   </nav>
-
 </body>
-
 </html>
