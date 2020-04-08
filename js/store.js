@@ -105,7 +105,7 @@ function checkFood()
                                 <div class="col-12 col-md-4 mb-3">
                                   <div class="card rounded-0 shadow">
                                   ${ photo }
-                                    <div class="card-body border-top">
+                                    <div class="card-body">
                                       <div class="row">
                                         <div class="col-10">
                                           <h6 class="card-title shop-item-title">${ o.name.toUpperCase() }</h6>
