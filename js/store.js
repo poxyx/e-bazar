@@ -96,12 +96,16 @@ function checkFood()
             if (exclude.indexOf(key) == -1)
             {
                 let o = obj[key].menu;
+                let photo = o.photo != undefined && o.photo != "" ? `<img class="rounded-0 card-img-top" src="${ o.photo }" alt="Card image">` : "";
+
+                if(photo != undefined) {
 
                 foodList.insertAdjacentHTML('beforeend',
                     `
                                 <div class="col-12 col-md-4 mb-3">
                                   <div class="card rounded-0 shadow">
-                                    <div class="card-body">
+                                  ${ photo }
+                                    <div class="card-body border-top">
                                       <div class="row">
                                         <div class="col-10">
                                           <h6 class="card-title shop-item-title">${ o.name.toUpperCase() }</h6>
@@ -117,6 +121,7 @@ function checkFood()
                                   </div>
                                 </div>
                         `);
+                }
             }
 
         }
